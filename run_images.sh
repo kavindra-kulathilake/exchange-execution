@@ -11,5 +11,5 @@ podman run -d  --name exchange-web  --network exchange -e REACT_APP_API_BASE_URL
 docker build -t kkulathilake/nginx-exchange:latest .
 podman stop nginx-exchange
 podman rm nginx-exchange
-podman run -d   -p 8080:80 -p 8443:443 --network exchange --name nginx-exchange   localhost/kkulathilake/nginx-exchange:latest
+podman run -d   -p 8080:8080 -p 8443:8443 --network exchange --name nginx-exchange   localhost/kkulathilake/nginx-exchange:latest
 
