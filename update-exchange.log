@@ -1,0 +1,47 @@
+-bash: */5: No such file or directory
++ podman network inspect exchange
+++ podman pull sprintlyinterchange/exchange:latest
+++ grep 'Downloaded newer image'
+Trying to pull docker.io/sprintlyinterchange/exchange:latest...
+Getting image source signatures
+Copying blob sha256:2ff1d7c41c74a25258bfa6f0b8adb0a727f84518f55f65ca845ebc747976c408
+Copying blob sha256:1de76e268b103d05fa8960e0f77951ff54b912b63429c34f5d6adfd09f5f9ee2
+Copying blob sha256:d9a8df5894511ce28a05e2925a75e8a4acbd0634c39ad734fdfba8e23d1b1569
+Copying blob sha256:6f51ee005deac0d99898e41b8ce60ebf250ebe1a31a0b03f613aec6bbc9b83d8
+Copying blob sha256:b253aeafeaa7e0671bb60008df01de101a38a045ff7bc656e3b0fbfc7c05cca5
+Copying blob sha256:3d2201bd995cccf12851a50820de03d34a17011dcbb9ac9fdf3a50c952cbb131
+Copying blob sha256:5f32ed3c3f278edda4fc571c880b5277355a29ae8f52b52cdf865f058378a590
+Copying blob sha256:0c8cc2f24a4dcb64e602e086fc9446b0a541e8acd9ad72d2e90df3ba22f158b3
+Copying blob sha256:0d27a8e861329007574c6766fba946d48e20d2c8e964e873de352603f22c4ceb
+Copying blob sha256:0f65bedefce2a1cc33699090f91c84ba38078d9b361e3472ab6ce98ec4e9d13b
+Copying blob sha256:c50a1105f57254804f5b41eb20474ef1820b2c4077099e69edd159242259d8fe
+Copying blob sha256:3b5190e196d0c4014f49e46ca4f1be04b817cf35185740c7c39d2f7102c6a9e7
+Copying blob sha256:4ced97e90e1363ee087655d9f4416a940a7e3decd2d5997e28b2f64da12e4fe5
+Copying config sha256:c73f76a3bf6732ad260def461d7e0fb253d81892418a15c272855e5666b66ed5
+Writing manifest to image destination
++ EXCHANGE_UPDATED=
+++ podman pull sprintlyinterchange/exchange-web:latest
+++ grep 'Downloaded newer image'
+Trying to pull docker.io/sprintlyinterchange/exchange-web:latest...
+Getting image source signatures
+Copying blob sha256:6f51ee005deac0d99898e41b8ce60ebf250ebe1a31a0b03f613aec6bbc9b83d8
+Copying blob sha256:3d2201bd995cccf12851a50820de03d34a17011dcbb9ac9fdf3a50c952cbb131
+Copying blob sha256:1de76e268b103d05fa8960e0f77951ff54b912b63429c34f5d6adfd09f5f9ee2
+Copying blob sha256:d9a8df5894511ce28a05e2925a75e8a4acbd0634c39ad734fdfba8e23d1b1569
+Copying blob sha256:b253aeafeaa7e0671bb60008df01de101a38a045ff7bc656e3b0fbfc7c05cca5
+Copying blob sha256:2ff1d7c41c74a25258bfa6f0b8adb0a727f84518f55f65ca845ebc747976c408
+Copying blob sha256:5f32ed3c3f278edda4fc571c880b5277355a29ae8f52b52cdf865f058378a590
+Copying blob sha256:0c8cc2f24a4dcb64e602e086fc9446b0a541e8acd9ad72d2e90df3ba22f158b3
+Copying blob sha256:0d27a8e861329007574c6766fba946d48e20d2c8e964e873de352603f22c4ceb
+Copying blob sha256:f9c35358f745d100f1c6e7b53747064996a536b3e49313947afcf656141edd0c
+Copying blob sha256:fc0f5b8e1c54041ed423525cab1af233a83a2a2a05450f857c9ce7f29c8be114
+Copying blob sha256:eb0a86db9e361495974cce24567c1c0f14fb08a56131964eb479ffb917130b7f
+Copying blob sha256:444d1a55df6c9877b452c0a3814109841552a240174de2bbac123ae520e5c1e3
+Copying blob sha256:1a47f0f5cee068ae980099718da6661b7fe5efec132b4d8dfd78203a3aa4ee2c
+Copying config sha256:7c49a2b158e5bbf7776bfd19619ec82102492bd8eea8ad9913eb7e7454686f8d
+Writing manifest to image destination
++ EXCHANGE_WEB_UPDATED=
++ [[ -n '' ]]
++ [[ -n '' ]]
++ echo 'No updates found, skipping deployment.'
+No updates found, skipping deployment.
