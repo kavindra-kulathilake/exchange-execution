@@ -2,7 +2,7 @@
 
 # Enable debug mode to print each command
 set -x
-
+echo "Current date and time: $(date)"
 # Create network if it doesn't exist
 podman network inspect exchange >/dev/null 2>&1 || podman network create exchange
 
