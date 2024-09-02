@@ -1,16 +1,15 @@
 #!/bin/bash
-
-# Enable debug mode to print each command
 set -x
 echo "Current date and time: $(date)"
+
 # Create network if it doesn't exist
 podman network inspect exchange >/dev/null 2>&1 || podman network create exchange
 
 # Check for updates and only proceed if there are changes
-EXCHANGE_UPDATED=$(podman pull sprintlyinterchange/exchange:latest | grep "Downloaded newer image")
-EXCHANGE_WEB_UPDATED=$(podman pull sprintlyinterchange/exchange-web:latest | grep "Downloaded newer image")
+EXCHANGE_UPDATED=$(podman pull sprintlyinterchange/exchange:latest | tee /dev/tty | grep -q "Downloaded"; echo $?)
+EXCHANGE_WEB_UPDATED=$(podman pull sprintlyinterchange/exchange-web:latest | tee /dev/tty | grep -q "Downloaded"; echo $?)
 
-if [[ -n "$EXCHANGE_UPDATED" || -n "$EXCHANGE_WEB_UPDATED" ]]; then
+if [[ "$EXCHANGE_UPDATED" -eq 0 || "$EXCHANGE_WEB_UPDATED" -eq 0 ]]; then
     # Stop and remove the existing containers
     podman stop exchange
     podman rm exchange
