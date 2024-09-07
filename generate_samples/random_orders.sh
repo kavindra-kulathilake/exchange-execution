@@ -22,6 +22,17 @@ QUANTITY3=$((RANDOM % 5 + 1))
 TOTAL_PRICE=$(awk -v min=10 -v max=100 'BEGIN{srand(); print min+rand()*(max-min)}')
 ORDER_DATE=$(date +"%Y-%m-%d %H:%M:%S")
 
+# Fixed organization numbers
+SENDER_ORG_NUMBERS=("123456789" "987654321" "555444333" "111222333" "444555666")
+RECEIVER_ORG_NUMBERS=("111999888" "222888777" "333777666" "444666555" "555333222")
+
+# Define random senderId and receiverId as country codes with fixed organization numbers
+SENDER_ID=$(shuf -n 1 -e "US" "DE" "IN" "JP" "GB")_$(shuf -n 1 -e "${SENDER_ORG_NUMBERS[@]}")
+RECEIVER_ID=$(shuf -n 1 -e "US" "DE" "IN" "JP" "GB")_$(shuf -n 1 -e "${RECEIVER_ORG_NUMBERS[@]}")
+
+# Use order_id as messageId
+MESSAGE_ID="$ORDER_ID"
+
 # Create the JSON structure for the order
 ORDER_JSON=$(cat <<EOF
 {
@@ -33,7 +44,10 @@ ORDER_JSON=$(cat <<EOF
         {"item_id": $ITEM_ID3, "item_name": "ItemC", "quantity": $QUANTITY3}
     ],
     "total_price": $(printf "%.2f" $TOTAL_PRICE),
-    "order_date": "$ORDER_DATE"
+    "order_date": "$ORDER_DATE",
+    "senderId": "$SENDER_ID",
+    "receiverId": "$RECEIVER_ID",
+    "messageId": "$MESSAGE_ID"
 }
 EOF
 )
@@ -50,6 +64,9 @@ echo "Order saved to $FILEPATH"
 # Wait for a few minutes before generating the order response
 sleep 120  # Sleep for 2 minutes
 
+# Use order_id as messageId for the order response
+RESPONSE_MESSAGE_ID="$ORDER_ID"
+
 # Generate the order response JSON
 RESPONSE_STATUS=$(shuf -n 1 -e "Processing" "Completed" "Shipped" "Delivered")
 RESPONSE_DATE=$(date +"%Y-%m-%d %H:%M:%S")
@@ -58,7 +75,10 @@ ORDER_RESPONSE_JSON=$(cat <<EOF
 {
     "order_id": $ORDER_ID,
     "status": "$RESPONSE_STATUS",
-    "response_date": "$RESPONSE_DATE"
+    "response_date": "$RESPONSE_DATE",
+    "senderId": "$SENDER_ID",
+    "receiverId": "$RECEIVER_ID",
+    "messageId": "$RESPONSE_MESSAGE_ID"
 }
 EOF
 )
@@ -74,6 +94,9 @@ echo "Order response saved to $RESPONSE_FILEPATH"
 
 # Wait again before generating the invoice
 sleep 60  # Sleep for 1 more minute (adjust as needed)
+
+# Use order_id as messageId for the invoice
+INVOICE_MESSAGE_ID="$ORDER_ID"
 
 # Generate the invoice JSON
 INVOICE_ID=$((RANDOM % 9000 + 1000))
@@ -92,7 +115,10 @@ INVOICE_JSON=$(cat <<EOF
     ],
     "total_amount": $(printf "%.2f" $TOTAL_PRICE),
     "invoice_date": "$INVOICE_DATE",
-    "due_date": "$DUE_DATE"
+    "due_date": "$DUE_DATE",
+    "senderId": "$SENDER_ID",
+    "receiverId": "$RECEIVER_ID",
+    "messageId": "$INVOICE_MESSAGE_ID"
 }
 EOF
 )
