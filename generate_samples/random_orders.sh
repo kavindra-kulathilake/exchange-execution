@@ -19,7 +19,7 @@ ITEM_ID3=$((RANDOM % 10 + 21))
 QUANTITY1=$((RANDOM % 5 + 1))
 QUANTITY2=$((RANDOM % 5 + 1))
 QUANTITY3=$((RANDOM % 5 + 1))
-TOTAL_PRICE=$(awk -v min=10 -v max=100 'BEGIN{srand(); print min+rand()*(max-min)}')
+TOTAL_PRICE=$(echo "scale=2; $QUANTITY1*10.00 + $QUANTITY2*15.00 + $QUANTITY3*20.00" | bc)  # Calculate total
 ORDER_DATE=$(date +"%Y-%m-%d %H:%M:%S")
 
 # Fixed organization numbers
@@ -67,14 +67,14 @@ sleep 120  # Sleep for 2 minutes
 # Use order_id as messageId for the order response
 RESPONSE_MESSAGE_ID="$ORDER_ID"
 
-# Reuse the senderId and receiverId from the original order
+# Generate order response JSON with swapped sender and receiver
 ORDER_RESPONSE_JSON=$(cat <<EOF
 {
     "order_id": $ORDER_ID,
     "status": "$(shuf -n 1 -e 'Processing' 'Completed' 'Shipped' 'Delivered')",
     "response_date": "$(date +"%Y-%m-%d %H:%M:%S")",
-    "senderId": "$RECEIVER_ID",  # Switch senderId and receiverId
-    "receiverId": "$SENDER_ID",  # In responses, receiver and sender are swapped
+    "senderId": "$RECEIVER_ID",
+    "receiverId": "$SENDER_ID",
     "messageId": "$RESPONSE_MESSAGE_ID"
 }
 EOF
@@ -95,7 +95,7 @@ sleep 60  # Sleep for 1 more minute (adjust as needed)
 # Use order_id as messageId for the invoice
 INVOICE_MESSAGE_ID="$ORDER_ID"
 
-# Generate the invoice JSON
+# Generate the invoice JSON with swapped sender and receiver
 INVOICE_JSON=$(cat <<EOF
 {
     "invoice_id": $((RANDOM % 9000 + 1000)),
@@ -109,8 +109,8 @@ INVOICE_JSON=$(cat <<EOF
     "total_amount": $(printf "%.2f" $TOTAL_PRICE),
     "invoice_date": "$(date +"%Y-%m-%d %H:%M:%S")",
     "due_date": "$(date -d '+30 days' +"%Y-%m-%d %H:%M:%S")",
-    "senderId": "$RECEIVER_ID",  # Switch senderId and receiverId
-    "receiverId": "$SENDER_ID",  # In invoices, receiver and sender are swapped
+    "senderId": "$RECEIVER_ID", 
+    "receiverId": "$SENDER_ID",
     "messageId": "$INVOICE_MESSAGE_ID"
 }
 EOF
@@ -124,4 +124,3 @@ INVOICE_FILEPATH="$INVOICE_OUTPUT_DIR/$INVOICE_FILENAME"
 echo "$INVOICE_JSON" > "$INVOICE_FILEPATH"
 chmod 777 "$INVOICE_FILEPATH"
 echo "Invoice saved to $INVOICE_FILEPATH"
-
