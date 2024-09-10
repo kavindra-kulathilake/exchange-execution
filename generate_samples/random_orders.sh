@@ -67,17 +67,14 @@ sleep 120  # Sleep for 2 minutes
 # Use order_id as messageId for the order response
 RESPONSE_MESSAGE_ID="$ORDER_ID"
 
-# Generate the order response JSON
-RESPONSE_STATUS=$(shuf -n 1 -e "Processing" "Completed" "Shipped" "Delivered")
-RESPONSE_DATE=$(date +"%Y-%m-%d %H:%M:%S")
-
+# Reuse the senderId and receiverId from the original order
 ORDER_RESPONSE_JSON=$(cat <<EOF
 {
     "order_id": $ORDER_ID,
-    "status": "$RESPONSE_STATUS",
-    "response_date": "$RESPONSE_DATE",
-    "senderId": "$SENDER_ID",
-    "receiverId": "$RECEIVER_ID",
+    "status": "$(shuf -n 1 -e 'Processing' 'Completed' 'Shipped' 'Delivered')",
+    "response_date": "$(date +"%Y-%m-%d %H:%M:%S")",
+    "senderId": "$RECEIVER_ID",  # Switch senderId and receiverId
+    "receiverId": "$SENDER_ID",  # In responses, receiver and sender are swapped
     "messageId": "$RESPONSE_MESSAGE_ID"
 }
 EOF
@@ -99,13 +96,9 @@ sleep 60  # Sleep for 1 more minute (adjust as needed)
 INVOICE_MESSAGE_ID="$ORDER_ID"
 
 # Generate the invoice JSON
-INVOICE_ID=$((RANDOM % 9000 + 1000))
-INVOICE_DATE=$(date +"%Y-%m-%d %H:%M:%S")
-DUE_DATE=$(date -d "+30 days" +"%Y-%m-%d %H:%M:%S")
-
 INVOICE_JSON=$(cat <<EOF
 {
-    "invoice_id": $INVOICE_ID,
+    "invoice_id": $((RANDOM % 9000 + 1000)),
     "order_id": $ORDER_ID,
     "customer_name": "$CUSTOMER_NAME",
     "items": [
@@ -114,10 +107,10 @@ INVOICE_JSON=$(cat <<EOF
         {"item_id": $ITEM_ID3, "item_name": "ItemC", "quantity": $QUANTITY3, "price": 20.00}
     ],
     "total_amount": $(printf "%.2f" $TOTAL_PRICE),
-    "invoice_date": "$INVOICE_DATE",
-    "due_date": "$DUE_DATE",
-    "senderId": "$SENDER_ID",
-    "receiverId": "$RECEIVER_ID",
+    "invoice_date": "$(date +"%Y-%m-%d %H:%M:%S")",
+    "due_date": "$(date -d '+30 days' +"%Y-%m-%d %H:%M:%S")",
+    "senderId": "$RECEIVER_ID",  # Switch senderId and receiverId
+    "receiverId": "$SENDER_ID",  # In invoices, receiver and sender are swapped
     "messageId": "$INVOICE_MESSAGE_ID"
 }
 EOF

@@ -4,7 +4,7 @@ echo "Current date and time: $(date)"
 
 # Create network if it doesn't exist
 podman network inspect exchange >/dev/null 2>&1 || podman network create exchange
-
+podman system prune -f
 # Get the current image IDs
 CURRENT_EXCHANGE_ID=$(podman images -q sprintlyinterchange/exchange:latest)
 CURRENT_EXCHANGE_WEB_ID=$(podman images -q sprintlyinterchange/exchange-web:latest)

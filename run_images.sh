@@ -1,4 +1,5 @@
 set +x
+podman system prune -f
 podman network create exchange
 podman pull sprintlyinterchange/exchange:latest
 podman pull sprintlyinterchange/exchange-web:latest
