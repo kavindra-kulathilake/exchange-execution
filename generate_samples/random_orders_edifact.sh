@@ -1,8 +1,8 @@
 #!/bin/bash
 
-OUTPUT_DIR="/home/ftpuser/orders/download"
-RESPONSE_OUTPUT_DIR="/home/ftpuser/orderresponse/download"
-INVOICE_OUTPUT_DIR="/home/ftpuser/invoice/download"
+OUTPUT_DIR="/home/ftpuser/supplier/orders/download"
+RESPONSE_OUTPUT_DIR="/home/ftpuser/buyer/orderresponse/download"
+INVOICE_OUTPUT_DIR="/home/ftpuser/supplier/invoice/download"
 
 # Ensure the output directories exist
 mkdir -p "$OUTPUT_DIR"

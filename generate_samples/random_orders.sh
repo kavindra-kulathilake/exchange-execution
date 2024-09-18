@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Set directories for orders, order responses, and invoices
-OUTPUT_DIR="/home/ftpuser/orders/download"
-RESPONSE_OUTPUT_DIR="/home/ftpuser/orderresponse/download"
-INVOICE_OUTPUT_DIR="/home/ftpuser/invoice/download"
+OUTPUT_DIR="/home/ftpuser/buyer/orders/download"
+RESPONSE_OUTPUT_DIR="/home/ftpuser/supplier/orderresponse/download"
+INVOICE_OUTPUT_DIR="/home/ftpuser/supplier/invoice/download"
 
 # Ensure the output directories exist
 mkdir -p "$OUTPUT_DIR"
