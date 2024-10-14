@@ -5,7 +5,7 @@ ORDER_SCRIPT="/opt/exchange-execution/generate_samples/random_orders.sh"
 EDIFACT_SCRIPT="/opt/exchange-execution/generate_samples/random_orders_edifact.sh"
 
 # Generate a random sleep time between 0 and 59 seconds
-SLEEP_TIME=$((RANDOM % 60))
+SLEEP_TIME=$((RANDOM % 180))
 
 # Sleep for the random amount of time
 sleep $SLEEP_TIME
